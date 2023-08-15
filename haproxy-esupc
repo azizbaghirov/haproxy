@@ -1,0 +1,15 @@
+##########################################################################################
+############################# FRONT END SERVERS ##########################################
+##########################################################################################
+
+frontend esupc
+
+        bind *:80
+
+#  UI's
+
+        use_backend backend-esupc-back if { path /web-api } || { path_beg /web-api/ }
+
+        acl url_esupc-front hdr_dom(host) -i     esupc.local
+        acl url_esupc-front hdr_dom(host) -i www.esupc.local
+        use_backend backend-esupc-front if url_esupc-front
